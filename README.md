@@ -105,10 +105,7 @@ python examples/sample_predict.py
 | オプティマイザ | Adam (lr=0.001) |
 | train / val / test 分割 | 70% / 10% / 20% |
 
-学習曲線・混同行列は `models/` に保存される。
-
-![学習曲線](models/learning_curves.png)
-![混同行列](models/confusion_matrix.png)
+学習曲線・混同行列は学習実行後に `models/` に保存される。
 
 ---
 
@@ -137,5 +134,3 @@ tennis-pose/
 
 本プロジェクトのコードは MIT License。
 データセットは CC BY 4.0（上記クレジット表記を参照）。
-# tennis-pose
-# tennis-pose
