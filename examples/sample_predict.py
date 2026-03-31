@@ -10,7 +10,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent))
 
-from soft_tennis_pose.predict import predict
+from tennis_pose.predict import predict
 
 # フォアハンドのJSONから1番目のサンプルを予測
 result = predict("data/annotations/forehand.json", sample_idx=0)

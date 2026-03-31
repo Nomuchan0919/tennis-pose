@@ -2,7 +2,7 @@
 train.py — 学習スクリプト
 
 使い方:
-    python -m soft_tennis_pose.train
+    python -m tennis_pose.train
 """
 
 from pathlib import Path

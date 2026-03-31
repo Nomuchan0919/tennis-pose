@@ -1,4 +1,4 @@
-# soft-tennis-pose
+# tennis-pose
 
 テニスの動作画像から姿勢を分類する機械学習ライブラリ。
 
@@ -73,7 +73,7 @@ Linear(64 → 4)
 ### 学習
 
 ```bash
-python -m soft_tennis_pose.train
+python -m tennis_pose.train
 ```
 
 学習済みモデルは `models/` に保存される。
@@ -81,7 +81,7 @@ python -m soft_tennis_pose.train
 ### 推論
 
 ```python
-from soft_tennis_pose.predict import predict
+from tennis_pose.predict import predict
 
 result = predict("data/annotations/forehand.json", sample_idx=0)
 print(result)  # {'class': 'forehand', 'confidence': 0.95}
@@ -115,8 +115,8 @@ python examples/sample_predict.py
 ## ディレクトリ構成
 
 ```
-soft-tennis-pose/
-├── soft_tennis_pose/
+tennis-pose/
+├── tennis_pose/
 │   ├── dataset.py     # データ読み込み・前処理
 │   ├── model.py       # 分類モデル定義
 │   ├── train.py       # 学習スクリプト
