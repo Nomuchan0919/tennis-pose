@@ -3,4 +3,4 @@ models/
 __pycache__/
 *.pyc
 .DS_Store
-CLAUDE.md
+project_memo.md
