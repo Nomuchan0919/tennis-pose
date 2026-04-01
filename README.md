@@ -11,7 +11,7 @@
 - 骨格キーポイント座標（36次元）のみを入力とするシンプルなMLP分類器
 - PyTorchで実装
 - COCO形式のアノテーションJSONに対応
-- フォアハンドの「良いフォーム」を3指標でスコアリング（0〜100点）
+- フォアハンド・バックハンド・サーブの「良いフォーム」をショット別指標でスコアリング（0〜100点）
 
 ---
 
@@ -94,25 +94,34 @@ print(result)  # {'class': 'forehand', 'confidence': 0.95}
 python examples/sample_predict.py
 ```
 
-### フォームスコア（フォアハンド専用）
+### フォームスコア
 
-インパクト瞬間の静止画から、以下の3指標を数値化して0〜100点のスコアを返す。
+インパクト瞬間の静止画から、ショット別の指標を数値化して0〜100点のスコアを返す。
 
-| 指標 | 内容 |
+| ショット | 評価指標 |
 |---|---|
-| 膝の曲がり | 膝関節角度が適切に曲がっているか |
-| 体重移動 | 腰の重心が左足寄りに乗っているか |
-| 腰の回転 | 腰のラインが横を向いているか（正面向きはNG） |
+| フォアハンド | 膝の曲がり / 体重移動（右→左足）/ 腰の回転 |
+| バックハンド | 膝の曲がり / 体重移動（左→右足）/ 腰の回転 |
+| サーブ | 膝の曲がり / 体の捻り / 肘の高さ / 重心が前 |
 
 ```python
 from tennis_pose.form_score import score_from_json
 
-result = score_from_json("data/annotations/forehand.json", sample_idx=0)
+# フォアハンド
+result = score_from_json("data/annotations/forehand.json", shot="forehand", sample_idx=0)
 print(result)
-# 総合スコア      : 33.8 / 100
-#   膝の曲がり    : 36.8 / 100
-#   体重移動      : 64.5 / 100
-#   腰の回転      :  0.0 / 100
+# 【フォアハンド】総合スコア: 55.2 / 100
+#   膝の曲がり: 68.3 / 100
+#   体重移動: 55.5 / 100
+#   腰の回転: 41.6 / 100
+
+# バックハンド
+result = score_from_json("data/annotations/backhand.json", shot="backhand", sample_idx=0)
+print(result)
+
+# サーブ
+result = score_from_json("data/annotations/serve.json", shot="serve", sample_idx=0)
+print(result)
 ```
 
 ---
