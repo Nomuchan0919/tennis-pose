@@ -126,10 +126,10 @@ def _score_hip_rotation(keypoints: list) -> tuple:
     dy = abs(left_hip[1] - right_hip[1])
     hip_angle = math.degrees(math.atan2(dy, dx))
 
-    if hip_angle >= 45:
+    if hip_angle >= 25:
         score = 100.0
-    elif hip_angle >= 15:
-        score = (hip_angle - 15) / 30 * 100
+    elif hip_angle >= 5:
+        score = (hip_angle - 5) / 20 * 100
     else:
         score = 0.0
 
@@ -252,12 +252,10 @@ def _score_elbow_height(keypoints: list) -> tuple:
     # 画像座標は上が小さいため、肘y < 肩y なら肘が上にある
     diff = right_shoulder[1] - right_elbow[1]  # 正なら肘が肩より上
 
-    if diff >= 30:
+    if diff >= 10:
         score = 100.0
-    elif diff >= 0:
-        score = diff / 30 * 100
-    elif diff >= -30:
-        score = max(0.0, 50.0 + diff / 30 * 50)
+    elif diff >= -20:
+        score = max(0.0, (diff + 20) / 30 * 100)
     else:
         score = 0.0
 
