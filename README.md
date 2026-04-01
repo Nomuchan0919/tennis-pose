@@ -11,6 +11,7 @@
 - 骨格キーポイント座標（36次元）のみを入力とするシンプルなMLP分類器
 - PyTorchで実装
 - COCO形式のアノテーションJSONに対応
+- フォアハンドの「良いフォーム」を3指標でスコアリング（0〜100点）
 
 ---
 
@@ -93,6 +94,27 @@ print(result)  # {'class': 'forehand', 'confidence': 0.95}
 python examples/sample_predict.py
 ```
 
+### フォームスコア（フォアハンド専用）
+
+インパクト瞬間の静止画から、以下の3指標を数値化して0〜100点のスコアを返す。
+
+| 指標 | 内容 |
+|---|---|
+| 膝の曲がり | 膝関節角度が適切に曲がっているか |
+| 体重移動 | 腰の重心が左足寄りに乗っているか |
+| 腰の回転 | 腰のラインが横を向いているか（正面向きはNG） |
+
+```python
+from tennis_pose.form_score import score_from_json
+
+result = score_from_json("data/annotations/forehand.json", sample_idx=0)
+print(result)
+# 総合スコア      : 33.8 / 100
+#   膝の曲がり    : 36.8 / 100
+#   体重移動      : 64.5 / 100
+#   腰の回転      :  0.0 / 100
+```
+
 ---
 
 ## 学習結果
@@ -117,7 +139,8 @@ tennis-pose/
 │   ├── dataset.py     # データ読み込み・前処理
 │   ├── model.py       # 分類モデル定義
 │   ├── train.py       # 学習スクリプト
-│   └── predict.py     # 推論スクリプト
+│   ├── predict.py     # 推論スクリプト
+│   └── form_score.py  # フォームスコアリング
 ├── notebooks/
 │   └── explore_dataset.ipynb
 ├── examples/
